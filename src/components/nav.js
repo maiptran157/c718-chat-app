@@ -7,9 +7,9 @@ class Nav extends Component {
         return (
             <nav style={{
                 padding: '0 12px'
-            }} className="#d500f9 purple accent-3">
+            }} className="#00e5ff cyan accent-3">
                 <div className="nav-wrapper">
-                    <Link to="/" className="brand-logo">Fire Chat!</Link>
+                    <Link to="/" className="brand-logo yellow-text">🔥Fire Chat🔥</Link>
                     <ul className="right">
                         <li>
                             <Link to="/">Home</Link>
