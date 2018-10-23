@@ -1,4 +1,5 @@
 import React from 'react';
+import './rooms.css'
 import { Route, Switch } from 'react-router-dom';
 import Lobby from './lobby';
 import Create from './create';

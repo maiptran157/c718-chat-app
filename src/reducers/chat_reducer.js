@@ -5,7 +5,8 @@ const DEFAULT_STATE = {
     description: '',
     title: '',
     topic: '',
-    messages: {}
+    messages: {},
+    roomList: {}
 };
 
 export default (state = DEFAULT_STATE, action) => {
@@ -14,6 +15,8 @@ export default (state = DEFAULT_STATE, action) => {
             return { ...state, messages: action.messages }
         case types.GET_ROOM_INFO:
             return { ...state, ...action.roomInfo };
+        case types.GET_ROOM_LIST:
+            return { ...state, roomList: action.roomList };
         default:
             return state;
     }
