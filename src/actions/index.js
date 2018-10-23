@@ -58,3 +58,10 @@ export const createChatRoom = roomDetails => async dispatch => {
     return roomRef.key;
 }
 
+export const sendMessage = (chatId, message) => dispatch => {
+    const newMessage = {
+        message,
+        name: 'Mia'
+    }
+    db.ref(`/chat-logs/${chatId}`).push(newMessage);
+}
