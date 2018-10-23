@@ -5,9 +5,11 @@ import { createChatRoom } from '../../actions';
 import Input from '../general/input';
 
 class CreateRoom extends Component {
-    handleSaveRoom = values => {
+    handleSaveRoom = async values => {
         console.log('Handle Save Room:', values);
-        this.props.createChatRoom(values);
+        const roomId = await this.props.createChatRoom(values);
+        console.log('Room Id:', roomId);
+        this.props.history.push(`/rooms/${roomId}`);
     }
 
     render() {

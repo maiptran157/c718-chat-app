@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getMessages } from '../../actions';
+import { getMessages, getRoomInfo } from '../../actions';
 
 class Chat extends Component {
-    componentDidMount() {
-        this.dbRef = this.props.getMessages();
 
+    roomRef = null;
+    chatRef = null;
+
+    componentDidMount() {
+        const { getRoomInfo, match: { params } } = this.props;
+        this.roomRef = getRoomInfo(params.room_id);
+
+    }
+
+    componentDidUpdate(prevProps) {
+        const { chatId, getMessages } = this.props;
+
+        if (chatId && prevProps.chatId !== chatId) {
+            this.chatRef = getMessages(chatId);
+        }
     }
 
     componentWillUnmount() {
-        this.dbRef.off()
+        if (this.roomRef) {
+            this.roomRef.off()
+        }
+        if (this.chatRef) {
+            this.chatRef.off()
+        }
     }
     render() {
-        const { messages } = this.props;
+        console.log('Chat Props:', this.props);
+        const { description, title, topic, messages } = this.props;
         const messageElement = Object.keys(messages).map(key => {
             const { name, message } = messages[key]
             return (
@@ -25,7 +44,11 @@ class Chat extends Component {
         })
         return (
             <div>
-                <h1 className="center">Chat Room</h1>
+                <div className="center">
+                    <h1>{title || 'Chat Room'}</h1>
+                    <h5 className="grey-text">{topic}</h5>
+                    <p className="grey-text">{description}</p>
+                </div>
                 <ul className="collection">
                     {messageElement}
                 </ul>
@@ -35,11 +58,10 @@ class Chat extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        messages: state.chat.messages
-    }
+    return { ...state.chat };
 }
 
 export default connect(mapStateToProps, {
-    getMessages: getMessages
+    getMessages: getMessages,
+    getRoomInfo: getRoomInfo
 })(Chat);

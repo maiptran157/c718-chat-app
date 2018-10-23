@@ -7,9 +7,9 @@ import Chat from './chat';
 export default props => {
 
     const { path } = props.match;
-    console.log("Path:", path);
+    // console.log("Path:", path);
 
-    console.log(props);
+    // console.log(props);
     return (
         <Switch>
             <Route exact path={path} component={Lobby} />
