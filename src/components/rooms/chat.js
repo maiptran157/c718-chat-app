@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getMessages } from '../actions';
+import { getMessages } from '../../actions';
 
 class Chat extends Component {
     componentDidMount() {

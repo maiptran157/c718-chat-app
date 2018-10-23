@@ -1,0 +1,41 @@
+import React, { Component } from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { connect } from 'react-redux';
+import { createChatRoom } from '../../actions';
+import Input from '../general/input';
+
+class CreateRoom extends Component {
+    handleSaveRoom = values => {
+        console.log('Handle Save Room:', values);
+        this.props.createChatRoom(values);
+    }
+
+    render() {
+        const { handleSubmit } = this.props;
+        return (
+            <div>
+                <h1 className="center">Create Chat Room</h1>
+                <div className="row">
+                    <form className="col s12 m8 offset-m2" onSubmit={handleSubmit(this.handleSaveRoom)}>
+                        <Field name="title" label="Title" component={Input} />
+                        <Field name="topic" label="Topic" component={Input} />
+                        <Field name="description" label="Description" component={Input} />
+                        <div className="row">
+                            <div className="col s12 right-align">
+                                <button className="btn orange">Create Room</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
+    }
+}
+
+CreateRoom = reduxForm({
+    form: 'create-room'
+})(CreateRoom);
+
+export default connect(null, {
+    createChatRoom
+})(CreateRoom);
